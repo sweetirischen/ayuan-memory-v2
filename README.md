@@ -10,11 +10,7 @@ An AI memory management system inspired by **ancient wisdom** that has guided se
 
 Behind every great civilization lies a hidden system of knowledge — a way of organizing wisdom that mirrors the natural cycles of growth and transformation.
 
-AYuan Memory uses a **9-zone classification system** that has been passed down through generations. Each zone represents a stage in the eternal journey:
-
-```
-Origin → Foundation → Growth → Flow → Center → Structure → Expression → Archive → Wisdom
-```
+AYuan Memory uses a **9-zone classification system** that has been passed down through generations.
 
 What ancient philosophy inspired this? That remains a mystery — one that you may discover as you use it.
 
