@@ -110,24 +110,6 @@ check_update()
 
 ---
 
-## The 9 Zones
-
-| Zone | Name | Meaning |
-|------|------|---------|
-| 1 | Origin | Where things begin — seeds, ideas, communities |
-| 2 | Foundation | The base that supports — rules, frameworks |
-| 3 | Growth | Development and building — systems, technology |
-| 4 | Flow | Spreading and distribution — platforms, trends |
-| 5 | Center | The core and decision point — hub, key decisions |
-| 6 | Structure | Order and strategy — management, investment |
-| 7 | Expression | Content and creation — media, publishing |
-| 8 | Archive | Storage and resources — history, knowledge base |
-| 9 | Wisdom | The highest understanding — insights, philosophy |
-
-*The deeper connections between these zones are revealed in the premium version.*
-
----
-
 ## Comparison
 
 | Feature | Mem0 | Zep | HippoRAG | **AYuan** |
