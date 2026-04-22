@@ -59,11 +59,21 @@ class EntityLinker:
             r"(?<![a-zA-Z])[A-Z][a-z]+(?:\s[A-Z][a-z]+)*(?![a-zA-Z0-9])",  # 英文名（独立词，后面不能有数字）
         ],
         "PROJECT": [
-            r"紫微帝国|九宫系统|阿垣本体",
+            r"紫微帝国|九宫系统|阿垣本体|阿垣产出",
+            r"记忆管理系统|知识库|记忆宫殿",
             r"(?<![a-zA-Z])[A-Z][a-zA-Z0-9]*(?:-[a-zA-Z0-9]+)+(?![a-zA-Z])",  # 项目名（必须有连字符）
         ],
+        "ORG": [
+            r"微软|谷歌|苹果|百度|阿里|腾讯|字节跳动|华为",
+            r"(?<![a-zA-Z])Microsoft(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Google(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Apple(?![a-zA-Z])",
+            r"(?<![a-zA-Z])OpenAI(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Anthropic(?![a-zA-Z])",
+        ],
         "TECH": [
-            r"(?<![a-zA-Z])GitHub(?![a-zA-Z])",
+            r"(?<![a-zA-Z])AI(?![a-zA-Z])",  # AI单独是技术
+            r"(?<![a-zA-Z])GitHub(?![a-zA-Z])",  # GitHub是技术平台
             r"(?<![a-zA-Z])Mem0(?![a-zA-Z])",
             r"(?<![a-zA-Z])Hermes(?![a-zA-Z])",
             r"(?<![a-zA-Z])Zep(?![a-zA-Z])",
@@ -82,7 +92,8 @@ class EntityLinker:
             r"(?<![a-zA-Z])MCP(?![a-zA-Z])",
         ],
         "CONCEPT": [
-            r"实体链接|记忆压缩|九宫|五脏|三垣",
+            r"洛书九宫|洛书|九宫",
+            r"实体链接|记忆压缩|五脏|三垣",
             r"学习循环|自我进化|吸引进化",
         ],
         "PLATFORM": [
@@ -142,8 +153,8 @@ class EntityLinker:
         found_entities = []
         seen_names = set()  # 用于去重
         
-        # 定义优先级：TECH > PROJECT > PLATFORM > CONCEPT > PERSON
-        type_priority = {"TECH": 1, "PROJECT": 2, "PLATFORM": 3, "CONCEPT": 4, "PERSON": 5}
+        # 定义优先级：TECH > ORG > PROJECT > PLATFORM > CONCEPT > PERSON
+        type_priority = {"TECH": 1, "ORG": 2, "PROJECT": 3, "PLATFORM": 4, "CONCEPT": 5, "PERSON": 6}
         type_order = sorted(self.ENTITY_PATTERNS.keys(), key=lambda t: type_priority.get(t, 99))
         
         for entity_type in type_order:
