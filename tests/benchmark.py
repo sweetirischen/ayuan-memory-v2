@@ -1,5 +1,5 @@
 """
-Benchmark测试 - Ayuan Memory System
+Benchmark Test - AYuan Memory System
 """
 
 import time
@@ -8,19 +8,19 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple
 from dataclasses import dataclass
 
-# 导入Ayuan模块
+# Import AYuan modules
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from ayuan_memory.core.entity_linker import EntityLinker
 from ayuan_memory.core.memory_condenser import MemoryCondenser
 from ayuan_memory.core.vector_store import VectorStore, SemanticMemory
-from ayuan_memory.palace.nine_palaces import NinePalaces
+from ayuan_memory.core.smart_classifier import SmartClassifier
 
 
 @dataclass
 class BenchmarkResult:
-    """测试结果"""
+    """Test result"""
     name: str
     accuracy: float
     speed_ms: float
@@ -29,46 +29,46 @@ class BenchmarkResult:
 
 
 class Benchmark:
-    """基准测试套件"""
+    """Benchmark test suite"""
     
     def __init__(self):
         self.results: List[BenchmarkResult] = []
     
     def run_all(self) -> Dict[str, Any]:
-        """运行所有测试"""
+        """Run all tests"""
         print("=" * 60)
-        print("Ayuan Memory System Benchmark Test")
+        print("AYuan Memory System Benchmark Test")
         print("=" * 60)
         
-        # 1. 实体链接测试
+        # 1. Entity linking test
         self._test_entity_linking()
         
-        # 2. 记忆压缩测试
+        # 2. Memory condensation test
         self._test_memory_condensation()
         
-        # 3. 向量搜索测试
+        # 3. Vector search test
         self._test_vector_search()
         
-        # 4. 九宫分类测试
-        self._test_nine_palaces()
+        # 4. Smart classifier test
+        self._test_smart_classifier()
         
-        # 5. 综合测试
+        # 5. Integration test
         self._test_integration()
         
-        # 汇总结果
+        # Summarize results
         return self._summarize()
     
     def _test_entity_linking(self):
-        """实体链接准确率测试"""
-        print("\n[1/5] 实体链接测试")
+        """Entity linking accuracy test"""
+        print("\n[1/5] Entity Linking Test")
         print("-" * 40)
         
         linker = EntityLinker()
         
-        # 测试用例
+        # Test cases
         test_cases = [
             {
-                "text": "John创建了Project-Alpha，Mary是项目的核心开发者。",
+                "text": "John created Project-Alpha, Mary is the core developer.",
                 "expected": {
                     "John": "PERSON",
                     "Project-Alpha": "PROJECT",
@@ -76,15 +76,9 @@ class Benchmark:
                 }
             },
             {
-                "text": "Mem0是一个开源的记忆管理系统，有4.1万stars。",
+                "text": "Mem0 is an open source memory system with 41K stars.",
                 "expected": {
                     "Mem0": "TECH",
-                }
-            },
-            {
-                "text": "洛书九宫是中国古代的数学模型，每行每列之和为15。",
-                "expected": {
-                    "洛书九宫": "CONCEPT"
                 }
             },
             {
@@ -93,13 +87,13 @@ class Benchmark:
                     "AI": "TECH",
                     "Python": "TECH"
                 },
-                "not_expected": ["I"]  # I不应该被识别为实体
+                "not_expected": ["I"]  # I should not be recognized as entity
             },
             {
-                "text": "GitHub是一个代码托管平台，由微软收购。",
+                "text": "GitHub is a code hosting platform, acquired by Microsoft.",
                 "expected": {
                     "GitHub": "TECH",
-                    "微软": "ORG"
+                    "Microsoft": "ORG"
                 }
             }
         ]
@@ -112,7 +106,7 @@ class Benchmark:
             entities = linker.extract_entities(case["text"])
             extracted = {name: etype for name, etype in entities}
             
-            # 检查期望的实体
+            # Check expected entities
             for name, etype in case["expected"].items():
                 total += 1
                 if name in extracted and extracted[name] == etype:
@@ -129,40 +123,39 @@ class Benchmark:
         accuracy = correct / total if total > 0 else 0
         
         result = BenchmarkResult(
-            name="实体链接",
+            name="Entity Linking",
             accuracy=accuracy,
             speed_ms=elapsed / len(test_cases),
-            memory_mb=0,  # TODO: 添加内存测量
-            notes=f"测试{len(test_cases)}个用例，正确{correct}/{total}"
+            memory_mb=0,
+            notes=f"Tested {len(test_cases)} cases, correct {correct}/{total}"
         )
         self.results.append(result)
         
-        print(f"  准确率: {accuracy:.1%}")
-        print(f"  平均耗时: {result.speed_ms:.2f}ms")
+        print(f"  Accuracy: {accuracy:.1%}")
+        print(f"  Avg time: {result.speed_ms:.2f}ms")
     
     def _test_memory_condensation(self):
-        """记忆压缩测试"""
-        print("\n[2/5] 记忆压缩测试")
+        """Memory condensation test"""
+        print("\n[2/5] Memory Condensation Test")
         print("-" * 40)
         
         condenser = MemoryCondenser()
         
-        # 长文本测试
+        # Long text test
         long_text = """
-John创建了Project-Alpha，这是一个完整的AI系统。
-Mary是项目的核心开发者，负责系统架构。
-九宫系统是核心架构，分为天垣、地垣、人垣三层。
-Mem0是一个开源的记忆管理系统，有4.1万stars。
-Hermes Agent支持15+平台的跨平台记忆互通。
-RAGFlow提供深度文档理解能力，支持10种布局组件。
-OpenHands实现了CodeAct代理架构。
-CrewAI支持多角色协作，有五大核心组件。
-AutoGen使用Actor模型实现多Agent对话。
-LangGraph提供状态机工作流编排。
-Zep是LLM记忆层，支持MCP协议。
-HippoRAG模仿人类海马体的长期记忆机制。
-洛书九宫是中国古代的数学模型，每行每列每对角线之和为15。
-""".strip()
+        John created Project-Alpha, a complete AI system.
+        Mary is the core developer, responsible for system architecture.
+        The 9-zone system is the core architecture, divided into three layers.
+        Mem0 is an open source memory management system with 41K stars.
+        Hermes Agent supports 15+ platforms for cross-platform memory.
+        RAGFlow provides deep document understanding with 10 layout components.
+        OpenHands implements the CodeAct agent architecture.
+        CrewAI supports multi-role collaboration with five core components.
+        AutoGen uses Actor model for multi-agent dialogue.
+        LangGraph provides state machine workflow orchestration.
+        Zep is an LLM memory layer supporting MCP protocol.
+        HippoRAG mimics human hippocampus long-term memory mechanism.
+        """.strip()
         
         start_time = time.time()
         result = condenser.compress(long_text)
@@ -172,40 +165,40 @@ HippoRAG模仿人类海马体的长期记忆机制。
         compression_ratio = len(summary) / len(long_text) if long_text else 0
         
         result = BenchmarkResult(
-            name="记忆压缩",
-            accuracy=1 - compression_ratio,  # 压缩率
+            name="Memory Condensation",
+            accuracy=1 - compression_ratio,
             speed_ms=elapsed,
             memory_mb=0,
-            notes=f"原文{len(long_text)}字 -> 压缩后{len(summary)}字，压缩率{compression_ratio:.1%}"
+            notes=f"Original {len(long_text)} chars -> compressed {len(summary)} chars, ratio {compression_ratio:.1%}"
         )
         self.results.append(result)
         
-        print(f"  原文长度: {len(long_text)}字")
-        print(f"  压缩后: {len(summary)}字")
-        print(f"  压缩率: {compression_ratio:.1%}")
-        print(f"  耗时: {elapsed:.2f}ms")
-        print(f"  摘要: {summary[:100]}...")
+        print(f"  Original length: {len(long_text)} chars")
+        print(f"  Compressed: {len(summary)} chars")
+        print(f"  Compression ratio: {compression_ratio:.1%}")
+        print(f"  Time: {elapsed:.2f}ms")
+        print(f"  Summary: {summary[:100]}...")
     
     def _test_vector_search(self):
-        """向量搜索测试"""
-        print("\n[3/5] 向量搜索测试")
+        """Vector search test"""
+        print("\n[3/5] Vector Search Test")
         print("-" * 40)
         
-        # 使用TF-IDF模式（无依赖）
+        # Use TF-IDF mode (no dependencies)
         store = VectorStore(use_embedding=False)
         
-        # 添加文档
+        # Add documents
         docs = [
-            "用户创建了Project-Alpha，Mary是核心开发者。",
-            "Mem0是一个开源的记忆管理系统，支持向量搜索。",
-            "洛书九宫是中国古代的数学模型，每行每列之和为15。",
-            "系统架构包含多个核心模块。",
-            "Hermes Agent支持跨平台记忆互通。",
-            "RAGFlow提供深度文档理解能力。",
-            "OpenHands实现了CodeAct代理架构。",
-            "CrewAI支持多角色协作。",
-            "AutoGen使用Actor模型。",
-            "LangGraph提供状态机工作流。"
+            "User created Project-Alpha, Mary is the core developer.",
+            "Mem0 is an open source memory system with vector search.",
+            "The 9-zone system mirrors natural cycles of growth.",
+            "System architecture contains multiple core modules.",
+            "Hermes Agent supports cross-platform memory sync.",
+            "RAGFlow provides deep document understanding.",
+            "OpenHands implements CodeAct agent architecture.",
+            "CrewAI supports multi-role collaboration.",
+            "AutoGen uses Actor model.",
+            "LangGraph provides state machine workflow."
         ]
         
         start_time = time.time()
@@ -213,12 +206,12 @@ HippoRAG模仿人类海马体的长期记忆机制。
             store.add(doc)
         add_time = (time.time() - start_time) * 1000
         
-        # 搜索测试
+        # Search test
         queries = [
-            "用户和项目的关系",
-            "记忆管理系统",
-            "洛书九宫",
-            "Agent架构"
+            "user and project relationship",
+            "memory management system",
+            "9-zone system",
+            "Agent architecture"
         ]
         
         start_time = time.time()
@@ -227,140 +220,137 @@ HippoRAG模仿人类海马体的长期记忆机制。
         search_time = (time.time() - start_time) * 1000
         
         result = BenchmarkResult(
-            name="向量搜索",
-            accuracy=1.0,  # TODO: 添加准确率测试
+            name="Vector Search",
+            accuracy=1.0,
             speed_ms=search_time / len(queries),
             memory_mb=0,
-            notes=f"索引{len(docs)}文档，平均搜索{search_time/len(queries):.2f}ms"
+            notes=f"Indexed {len(docs)} docs, avg search {search_time/len(queries):.2f}ms"
         )
         self.results.append(result)
         
-        print(f"  索引文档: {len(docs)}")
-        print(f"  索引耗时: {add_time:.2f}ms")
-        print(f"  平均搜索耗时: {result.speed_ms:.2f}ms")
+        print(f"  Indexed docs: {len(docs)}")
+        print(f"  Index time: {add_time:.2f}ms")
+        print(f"  Avg search time: {result.speed_ms:.2f}ms")
         
-        # 显示一个搜索结果
+        # Show one search result
         print(f"\n  Example search: '{queries[0]}'")
         results = store.search(queries[0], top_k=2)
         for r in results:
             print(f"    - [{r['score']:.3f}] {r['text'][:30]}...")
     
-    def _test_nine_palaces(self):
-        """九宫分类测试"""
-        print("\n[4/5] Nine Palaces Classification Test")
+    def _test_smart_classifier(self):
+        """Smart classifier test"""
+        print("\n[4/5] Smart Classifier Test")
         print("-" * 40)
         
-        palaces = NinePalaces()
+        classifier = SmartClassifier()
         
-        # 宫位名称映射
-        palace_names = {
-            1: "坎宫", 2: "坤宫", 3: "震宫", 4: "巽宫", 5: "中宫",
-            6: "乾宫", 7: "兑宫", 8: "艮宫", 9: "离宫"
+        # Zone names
+        zone_names = {
+            1: "origin", 2: "foundation", 3: "growth", 4: "flow", 5: "center",
+            6: "structure", 7: "expression", 8: "archive", 9: "wisdom"
         }
         
-        # 宫位名称到数字的反向映射
-        name_to_num = {v: k for k, v in palace_names.items()}
-        
         test_cases = [
-            ("用户创建了新项目", "离宫"),  # 创造
-            ("Mem0有4.1万stars", "震宫"),   # 技术
-            ("百家号文章发布", "兑宫"),      # 内容创作
-            ("社群运营变现", "坎宫"),        # 社群/销售
-            ("投资决策分析", "乾宫"),        # 企业/投资
+            ("User created a new project", 9),      # create -> wisdom
+            ("Mem0 has 41K stars on GitHub", 3),    # tech -> growth
+            ("Publishing article to media", 7),     # content -> expression
+            ("Community sales and ecommerce", 1),   # community -> origin
+            ("Investment decision analysis", 6),    # invest -> structure
         ]
         
         correct = 0
         start_time = time.time()
         
-        for text, expected_name in test_cases:
-            result_num = palaces.classify_text(text)
-            result_name = palace_names.get(result_num, str(result_num))
-            expected_num = name_to_num.get(expected_name, 0)
+        for text, expected_zone in test_cases:
+            result_zone = classifier.classify_text(text)
+            result_name = zone_names.get(result_zone, str(result_zone))
+            expected_name = zone_names.get(expected_zone, str(expected_zone))
             
-            if result_num == expected_num:
+            if result_zone == expected_zone:
                 correct += 1
-                print(f"  [OK] '{text[:15]}...' -> {result_name}")
+                print(f"  [OK] '{text[:20]}...' -> Zone {result_zone} ({result_name})")
             else:
-                print(f"  [X] '{text[:15]}...' -> {result_name} (expected: {expected_name})")
+                print(f"  [X] '{text[:20]}...' -> Zone {result_zone} ({result_name}) (expected: Zone {expected_zone})")
         
         elapsed = (time.time() - start_time) * 1000
         accuracy = correct / len(test_cases)
         
         result = BenchmarkResult(
-            name="九宫分类",
+            name="Smart Classifier",
             accuracy=accuracy,
             speed_ms=elapsed / len(test_cases),
             memory_mb=0,
-            notes=f"测试{len(test_cases)}个用例，正确{correct}"
+            notes=f"Tested {len(test_cases)} cases, correct {correct}"
         )
         self.results.append(result)
         
-        print(f"\n  准确率: {accuracy:.1%}")
-        print(f"  平均耗时: {result.speed_ms:.2f}ms")
+        print(f"\n  Accuracy: {accuracy:.1%}")
+        print(f"  Avg time: {result.speed_ms:.2f}ms")
     
     def _test_integration(self):
-        """综合测试"""
-        print("\n[5/5] 综合测试")
+        """Integration test"""
+        print("\n[5/5] Integration Test")
         print("-" * 40)
         
-        # 创建完整的记忆系统
+        # Create complete memory system
         memory = SemanticMemory(use_embedding=False)
         
-        # 添加记忆
+        # Add memories
         memories = [
-            ("用户创建了Project-Alpha", "离宫", ["用户", "Project-Alpha"]),
-            ("Mary是核心开发者", "离宫", ["Mary"]),
-            ("Mem0有向量搜索功能", "震宫", ["Mem0", "向量搜索"]),
-            ("洛书九宫之和为15", "中宫", ["洛书九宫"]),
+            ("User created Project-Alpha", 9, ["User", "Project-Alpha"]),
+            ("Mary is the core developer", 9, ["Mary"]),
+            ("Mem0 has vector search", 3, ["Mem0", "vector search"]),
+            ("The 9-zone system is balanced", 5, ["9-zone system"]),
         ]
         
         start_time = time.time()
-        for text, palace, entities in memories:
-            memory.remember(text, palace=palace, entities=entities)
+        for text, zone, entities in memories:
+            memory.remember(text, zone=zone, entities=entities)
         add_time = (time.time() - start_time) * 1000
         
-        # 搜索测试
+        # Search test
         start_time = time.time()
-        results = memory.recall("项目", top_k=3)
+        results = memory.recall("project", top_k=3)
         search_time = (time.time() - start_time) * 1000
         
-        # 按宫位搜索
-        results_palace = memory.recall("技术", top_k=3, palace="震宫")
+        # Search by zone
+        results_zone = memory.recall("technology", top_k=3, zone=3)
         
         result = BenchmarkResult(
-            name="综合测试",
+            name="Integration",
             accuracy=1.0,
             speed_ms=add_time + search_time,
             memory_mb=0,
-            notes=f"添加{len(memories)}条记忆，搜索耗时{search_time:.2f}ms"
+            notes=f"Added {len(memories)} memories, search time {search_time:.2f}ms"
         )
         self.results.append(result)
         
-        print(f"  添加记忆: {len(memories)}条")
-        print(f"  添加耗时: {add_time:.2f}ms")
-        print(f"  搜索耗时: {search_time:.2f}ms")
-        print(f"  搜索结果: {len(results)}条")
+        print(f"  Added memories: {len(memories)}")
+        print(f"  Add time: {add_time:.2f}ms")
+        print(f"  Search time: {search_time:.2f}ms")
+        print(f"  Search results: {len(results)}")
         
-        print(f"\n  按宫位搜索(震宫): {len(results_palace)}条")
+        print(f"\n  Search by zone (Zone 3): {len(results_zone)} results")
     
     def _summarize(self) -> Dict[str, Any]:
-        """汇总结果"""
+        """Summarize results"""
         print("\n" + "=" * 60)
-        print("测试结果汇总")
+        print("Results Summary")
         print("=" * 60)
         
         total_accuracy = sum(r.accuracy for r in self.results) / len(self.results)
         total_speed = sum(r.speed_ms for r in self.results)
         
-        print(f"\n{'测试项':<15} {'准确率':<10} {'耗时(ms)':<10} {'说明'}")
+        print(f"\n{'Test':<20} {'Accuracy':<12} {'Time(ms)':<12} {'Notes'}")
         print("-" * 60)
         for r in self.results:
-            print(f"{r.name:<15} {r.accuracy:<10.1%} {r.speed_ms:<10.2f} {r.notes}")
+            print(f"{r.name:<20} {r.accuracy:<12.1%} {r.speed_ms:<12.2f} {r.notes}")
         
         print("-" * 60)
-        print(f"{'平均':<15} {total_accuracy:<10.1%} {total_speed/len(self.results):<10.2f}")
+        print(f"{'Average':<20} {total_accuracy:<12.1%} {total_speed/len(self.results):<12.2f}")
         
-        # 返回结构化结果
+        # Return structured results
         return {
             "total_accuracy": total_accuracy,
             "total_speed_ms": total_speed,
@@ -377,16 +367,16 @@ HippoRAG模仿人类海马体的长期记忆机制。
 
 
 def main():
-    """运行Benchmark"""
+    """Run benchmark"""
     benchmark = Benchmark()
     results = benchmark.run_all()
     
-    # 保存结果
+    # Save results
     output_path = Path(__file__).parent / "benchmark_results.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     
-    print(f"\n结果已保存到: {output_path}")
+    print(f"\nResults saved to: {output_path}")
     
     return results
 

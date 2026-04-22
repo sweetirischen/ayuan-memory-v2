@@ -1,5 +1,5 @@
 """
-Test Suite - Ayuan Memory System
+Test Suite - AYuan Memory System
 """
 
 import sys
@@ -8,7 +8,7 @@ import os
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ayuan_memory import EntityLinker, MemoryCondenser, MemoryPalace, NinePalaces, Evolution
+from ayuan_memory import EntityLinker, MemoryCondenser, MemoryPalace, SmartClassifier, Evolution
 from ayuan_memory.utils.storage import MemoryStorage
 
 
@@ -57,32 +57,32 @@ def test_memory_condenser():
     print("  [OK] MemoryCondenser test passed\n")
 
 
-def test_nine_palaces():
-    """Test Nine Palaces Classification"""
-    print("Testing NinePalaces...")
+def test_smart_classifier():
+    """Test Smart Classifier"""
+    print("Testing SmartClassifier...")
     
-    palaces = NinePalaces()
+    classifier = SmartClassifier()
     
-    # Test getting palace info
-    info = palaces.get_palace(1)
-    print(f"  Kan Palace info: {info.name}, element: {info.element}, meaning: {info.meaning}")
+    # Test getting zone info
+    info = classifier.get_zone(1)
+    print(f"  Zone 1 info: {info.name}, description: {info.description}")
     
     # Test classification
     text = "This is a project about technical development"
-    palace_num = palaces.classify_text(text)
-    palace_info = palaces.get_palace(palace_num)
-    print(f"  '{text}' classified to: {palace_info.name}")
-    
-    # Test three yuan
-    yuan = palaces.get_three_yuan(9)
-    print(f"  Li Palace belongs to: {yuan}")
+    zone_num = classifier.classify_text(text)
+    zone_info = classifier.get_zone(zone_num)
+    print(f"  '{text}' classified to: Zone {zone_num} ({zone_info.name})")
     
     # Test balance check
     counts = {1: 5, 2: 3, 3: 4, 4: 5, 5: 6, 6: 4, 7: 5, 8: 3, 9: 5}
-    is_balanced, score = palaces.check_balance(counts)
+    is_balanced, score = classifier.check_balance(counts)
     print(f"  Balance score: {score:.2f}, is balanced: {is_balanced}")
     
-    print("  [OK] NinePalaces test passed\n")
+    # Test generation path
+    path = classifier.get_generation_path()
+    print(f"  Generation path: {path}")
+    
+    print("  [OK] SmartClassifier test passed\n")
 
 
 def test_memory_palace():
@@ -98,16 +98,16 @@ def test_memory_palace():
         "type": "wisdom",
         "tags": ["lesson", "important"]
     }
-    room = palace.add_memory(memory, palace_number=9)
-    print(f"  Memory added to: {room.name}")
+    room = palace.add_memory(memory, zone_number=9)
+    print(f"  Memory added to: Zone {room.zone_number} ({room.name})")
     
     # Test search
     results = palace.search("lesson")
     print(f"  Search 'lesson' results count: {len(results)}")
     
     # Test stats
-    stats = palace.get_palace_stats()
-    print(f"  Li Palace memory count: {stats[9]['memory_count']}")
+    stats = palace.get_zone_stats()
+    print(f"  Zone 9 memory count: {stats[9]['memory_count']}")
     
     print("  [OK] MemoryPalace test passed\n")
 
@@ -166,12 +166,12 @@ def test_evolution():
 def run_all_tests():
     """Run all tests"""
     print("=" * 50)
-    print("Ayuan Memory System - Test Suite")
+    print("AYuan Memory System - Test Suite")
     print("=" * 50 + "\n")
     
     test_entity_linker()
     test_memory_condenser()
-    test_nine_palaces()
+    test_smart_classifier()
     test_memory_palace()
     test_storage()
     test_evolution()

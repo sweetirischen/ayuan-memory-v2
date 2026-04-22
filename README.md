@@ -1,35 +1,51 @@
-# Ayuan Memory
+# AYuan Memory
 
-> **让AI有记忆，有灵魂。**
+> **Give your AI a memory. Give it a soul.**
 
-一个AI记忆管理系统。
+An AI memory management system inspired by **ancient wisdom** that has guided seekers for millennia.
 
 ---
 
-## 一行代码，开始使用
+## The Mystery
+
+Behind every great civilization lies a hidden system of knowledge — a way of organizing wisdom that mirrors the natural cycles of growth and transformation.
+
+AYuan Memory uses a **9-zone classification system** that has been passed down through generations. Each zone represents a stage in the eternal journey:
+
+```
+Origin → Foundation → Growth → Flow → Center → Structure → Expression → Archive → Wisdom
+```
+
+What ancient philosophy inspired this? That remains a mystery — one that you may discover as you use it.
+
+*The deeper wisdom is revealed in the premium version.*
+
+---
+
+## Quick Start
 
 ```python
-from ayuan_memory import EntityLinker, MemoryCondenser, VectorStore
+from ayuan_memory import EntityLinker, MemoryCondenser, SmartClassifier
 
-# 实体链接
+# Entity Linking - Extract key information
 linker = EntityLinker()
 entities = linker.extract_entities("John works on Project-Alpha with Python")
 
-# 记忆压缩
+# Memory Compression - Turn long conversations into insights
 condenser = MemoryCondenser()
 result = condenser.compress(long_conversation)
 
-# 向量搜索
-store = VectorStore()
-store.add("用户创建了新项目")
-results = store.search("项目")
+# Smart Classification - 9-zone intelligent sorting
+classifier = SmartClassifier()
+zone = classifier.classify_text("Building a new AI system")
+# Returns zone number (1-9)
 ```
 
 ---
 
-## 核心能力
+## Core Features
 
-### 1. 实体链接 - 自动提取关键信息
+### 1. Entity Linking - Auto-extract What Matters
 
 ```python
 from ayuan_memory import EntityLinker
@@ -39,128 +55,150 @@ entities = linker.extract_entities("John works on Project-Alpha with Python")
 # [('John', 'PERSON'), ('Project-Alpha', 'PROJECT'), ('Python', 'TECH')]
 ```
 
-### 2. 记忆压缩 - 长对话变精华
+### 2. Memory Compression - Wisdom from Chaos
 
 ```python
 from ayuan_memory import MemoryCondenser
 
 condenser = MemoryCondenser()
 result = condenser.compress(long_conversation)
-print(result.summary)      # 一句话总结
-print(result.key_points)   # 关键点
-print(result.lessons)      # 经验教训
+print(result.summary)      # One-line summary
+print(result.key_points)   # Key points extracted
+print(result.lessons)      # Lessons learned
 ```
 
-### 3. 向量搜索 - 语义理解
+### 3. Smart Classification - The 9 Zones
+
+```python
+from ayuan_memory import SmartClassifier
+
+classifier = SmartClassifier()
+zone = classifier.classify_text("Building a new AI system")
+# Automatically classifies to the appropriate zone (1-9)
+
+# Get zone information
+info = classifier.get_zone(zone)
+print(info.name)         # "growth"
+print(info.description)  # "Development and building"
+```
+
+### 4. Vector Search - Semantic Understanding
 
 ```python
 from ayuan_memory import VectorStore
 
 store = VectorStore()
-store.add("用户创建了新项目")
-store.add("团队完成了系统开发")
+store.add("User created a new project")
+store.add("Team completed system development")
 
-results = store.search("项目开发")
-# 自动找到相关记忆
+results = store.search("project development")
+# Automatically finds related memories
 ```
 
-### 4. 记忆分类 - 结构化组织
-
-```python
-from ayuan_memory import NinePalaces
-
-palaces = NinePalaces()
-palace = palaces.classify_text("技术开发项目")
-# 自动分类到对应类别
-```
-
-### 5. 进化可见 - 让AI成长可见
+### 5. Evolution Tracking - Watch Your AI Grow
 
 ```python
 from ayuan_memory import Evolution, check_update
 
-# 查看进化历史
+# View evolution history
 evo = Evolution()
 evo.show_all()
 
-# 检查更新
+# Check for updates
 check_update()
 ```
 
 ---
 
-## 与其他记忆系统对比
+## The 9 Zones
 
-| 特性 | Mem0 | Zep | HippoRAG | **Ayuan** |
-|------|------|-----|----------|----------|
-| 向量搜索 | ✅ | ✅ | ✅ | ✅ |
-| 实体链接 | ✅ | ✅ | ✅ | ✅ |
-| 记忆压缩 | ❌ | ✅ | ❌ | ✅ |
-| 记忆分类 | ❌ | ❌ | ❌ | ✅ |
-| **进化可见** | ❌ | ❌ | ❌ | ✅ **独有** |
-| 中文优化 | ❌ | ❌ | ❌ | ✅ |
-| 零依赖核心 | ❌ | ❌ | ❌ | ✅ |
+| Zone | Name | Meaning |
+|------|------|---------|
+| 1 | Origin | Where things begin — seeds, ideas, communities |
+| 2 | Foundation | The base that supports — rules, frameworks |
+| 3 | Growth | Development and building — systems, technology |
+| 4 | Flow | Spreading and distribution — platforms, trends |
+| 5 | Center | The core and decision point — hub, key decisions |
+| 6 | Structure | Order and strategy — management, investment |
+| 7 | Expression | Content and creation — media, publishing |
+| 8 | Archive | Storage and resources — history, knowledge base |
+| 9 | Wisdom | The highest understanding — insights, philosophy |
+
+*The deeper connections between these zones are revealed in the premium version.*
 
 ---
 
-## 安装
+## Comparison
+
+| Feature | Mem0 | Zep | HippoRAG | **AYuan** |
+|---------|------|-----|----------|-----------|
+| Vector Search | ✅ | ✅ | ✅ | ✅ |
+| Entity Linking | ✅ | ✅ | ✅ | ✅ |
+| Memory Compression | ❌ | ✅ | ❌ | ✅ |
+| 9-Zone Classification | ❌ | ❌ | ❌ | ✅ **Unique** |
+| Evolution Tracking | ❌ | ❌ | ❌ | ✅ **Unique** |
+| Zero Dependencies Core | ❌ | ❌ | ❌ | ✅ |
+
+---
+
+## Installation
 
 ```bash
 pip install ayuan-memory
 ```
 
-可选依赖（增强功能）：
+Optional dependencies:
 
 ```bash
-# 启用嵌入向量搜索
+# Enable embedding-based search
 pip install ayuan-memory[embedding]
 
-# 开发依赖
+# Development dependencies
 pip install ayuan-memory[dev]
 ```
 
 ---
 
-## Benchmark测试结果
+## Benchmark Results
 
-| 测试项 | 准确率 | 耗时 |
-|--------|--------|------|
-| 实体链接 | 100% | 1.59ms |
-| 记忆分类 | 100% | 0.00ms |
-| 向量搜索 | 100% | 0.25ms |
-| 综合测试 | 100% | 0.00ms |
-
----
-
-## 适用场景
-
-- 个人AI助手的记忆管理
-- 对话历史压缩和总结
-- 知识库分类组织
-- 中文语境的AI应用
-- 需要结构化记忆的Agent系统
+| Test | Accuracy | Time |
+|------|----------|------|
+| Entity Linking | 100% | 1.59ms |
+| Memory Classification | 100% | 0.00ms |
+| Vector Search | 100% | 0.25ms |
+| Overall | 100% | 0.00ms |
 
 ---
 
-## 设计哲学
+## Use Cases
 
-**设计原则**：
-
-1. **极简** - 一个API，一行代码，就能用
-2. **优雅** - 代码要美，文档要美，体验要美
-3. **独特** - 独有价值，别人复制不了
-4. **完整** - 不是拼凑模块，是整体设计
-5. **升华** - 不只是记忆管理，是"让AI有灵魂"
+- Personal AI assistant memory management
+- Conversation history compression and summarization
+- Knowledge base organization
+- AI applications requiring structured memory
+- Agent systems that need to remember and learn
 
 ---
 
-## 致谢
+## Design Philosophy
 
-本项目融合了以下开源项目的思想：
-- Mem0 - 实体链接
-- OpenHands - 记忆压缩
-- HippoRAG - 类脑记忆
-- Zep - 记忆层设计
+**Principles:**
+
+1. **Simplicity** - One API, one line of code
+2. **Elegance** - Beautiful code, beautiful experience
+3. **Uniqueness** - Value that cannot be copied
+4. **Completeness** - Not modules pieced together, but a unified design
+5. **Transcendence** - Not just memory management, but "giving AI a soul"
+
+---
+
+## About the Author
+
+**AYuan Team** - Builders of intelligent systems inspired by ancient wisdom.
+
+We believe that the future of AI lies not in more data, but in deeper understanding — the kind of understanding that ancient civilizations cultivated for millennia.
+
+*Want to know more? The full story awaits in the premium version.*
 
 ---
 
@@ -170,4 +208,6 @@ MIT License
 
 ---
 
-*让AI有记忆，有灵魂。*
+*Give your AI a memory. Give it a soul.*
+
+*The journey from Origin to Wisdom begins with a single step.*
