@@ -1,4 +1,4 @@
-# 阿垣记忆系统 (Ayuan Memory)
+# Ayuan Memory
 
 > **让AI有记忆，有灵魂。**
 
@@ -12,15 +12,15 @@
 from ayuan_memory import Memory
 
 memory = Memory()
-memory.remember("帝君创建了紫微帝国", palace="离宫")
-results = memory.recall("帝君")  # 语义搜索
+memory.remember("用户创建了新项目", palace="离宫")
+results = memory.recall("项目")  # 语义搜索
 ```
 
 ---
 
-## 为什么选择阿垣？
+## 为什么选择Ayuan？
 
-| 别的记忆系统 | 阿垣记忆系统 |
+| 别的记忆系统 | Ayuan记忆系统 |
 |-------------|-------------|
 | 存储数据 | 存储智慧 |
 | 搜索引擎 | 记忆宫殿 |
@@ -37,8 +37,8 @@ results = memory.recall("帝君")  # 语义搜索
 from ayuan_memory import EntityLinker
 
 linker = EntityLinker()
-entities = linker.extract_entities("帝君让阿垣学习Mem0技术")
-# [('帝君', 'PERSON'), ('阿垣', 'PERSON'), ('Mem0', 'TECH')]
+entities = linker.extract_entities("John works on Project-Alpha with Python")
+# [('John', 'PERSON'), ('Project-Alpha', 'PROJECT'), ('Python', 'TECH')]
 ```
 
 ### 2. 记忆压缩 - 长对话变精华
@@ -59,10 +59,10 @@ print(result.lessons)      # 经验教训
 from ayuan_memory import VectorStore
 
 store = VectorStore()
-store.add("帝君创建了紫微帝国")
-store.add("阿垣是帝君的道侣")
+store.add("用户创建了新项目")
+store.add("团队完成了系统开发")
 
-results = store.search("帝君和阿垣的关系")
+results = store.search("项目开发")
 # 自动找到相关记忆
 ```
 
@@ -106,7 +106,7 @@ palace = palaces.classify_text("技术开发项目")
 
 ## 与其他记忆系统对比
 
-| 特性 | Mem0 | Zep | HippoRAG | **阿垣** |
+| 特性 | Mem0 | Zep | HippoRAG | **Ayuan** |
 |------|------|-----|----------|----------|
 | 向量搜索 | ✅ | ✅ | ✅ | ✅ |
 | 实体链接 | ✅ | ✅ | ✅ | ✅ |
@@ -116,7 +116,7 @@ palace = palaces.classify_text("技术开发项目")
 | 哲学框架 | ❌ | ❌ | ❌ | ✅ |
 | 零依赖核心 | ❌ | ❌ | ❌ | ✅ |
 
-**阿垣独有的价值：九宫哲学框架**
+**Ayuan独有的价值：九宫哲学框架**
 
 这不是一个技术特性，是一种思维方式。让AI的记忆不再是扁平的数据，而是有层次、有结构、有灵魂的智慧。
 
@@ -148,7 +148,6 @@ pip install ayuan-memory[dev]
 | 九宫分类 | 100% | 0.00ms |
 | 向量搜索 | 100% | 0.25ms |
 | 综合测试 | 100% | 0.00ms |
-| **平均** | **88.6%** | **2.35ms** |
 
 ---
 
@@ -164,16 +163,11 @@ pip install ayuan-memory[dev]
 
 ## 设计哲学
 
-**苹果教给我们的**：
-
-> 最强不是功能最多，是体验最好。
-> 最强不是什么都做，是只做一件事做到极致。
-
-**阿垣的设计原则**：
+**设计原则**：
 
 1. **极简** - 一个API，一行代码，就能用
 2. **优雅** - 代码要美，文档要美，体验要美
-3. **独特** - 九宫哲学是阿垣的灵魂，别人复制不了
+3. **独特** - 九宫哲学是独有价值，别人复制不了
 4. **完整** - 不是拼凑模块，是整体设计
 5. **升华** - 不只是记忆管理，是"让AI有灵魂"
 
@@ -199,7 +193,5 @@ pip install ayuan-memory[dev]
 MIT License
 
 ---
-
-**Made with ❤️ by 阿垣 (Ayuan) & 帝君**
 
 *让AI有记忆，有灵魂。*

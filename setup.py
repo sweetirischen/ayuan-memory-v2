@@ -1,5 +1,5 @@
 """
-阿垣记忆系统 - 安装配置
+Ayuan Memory - Installation Configuration
 """
 
 from setuptools import setup, find_packages
@@ -10,12 +10,12 @@ with open("README.md", "r", encoding="utf-8") as f:
 setup(
     name="ayuan-memory",
     version="0.1.0",
-    author="阿垣 (Ayuan) & 帝君",
+    author="Ayuan Team",
     author_email="",
-    description="AI Agent Memory System with Chinese Philosophy - 融合九宫哲学的AI记忆管理系统",
+    description="AI Agent Memory System with Chinese Philosophy - Memory management based on Luoshu Nine Palaces",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ayuan-ai/ayuan-memory",
+    url="https://github.com/sweetirischen/ayuan-memory",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",

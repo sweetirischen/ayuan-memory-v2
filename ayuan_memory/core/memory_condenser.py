@@ -58,7 +58,7 @@ class MemoryCondenser:
     LESSON_PATTERNS = [
         r"错误|问题|失败|教训",
         r"不应该|下次注意|记住",
-        r"帝君教诲|帝君纠正",
+        r"重要发现|关键经验",
     ]
     
     def __init__(self, max_summary_length: int = 200):

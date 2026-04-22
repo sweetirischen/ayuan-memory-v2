@@ -1,13 +1,5 @@
 """
-Benchmark测试 - 证明阿垣是最强的
-
-测试维度：
-1. 实体链接准确率
-2. 记忆压缩效率
-3. 向量搜索性能
-4. 九宫分类准确率
-
-对比目标：Mem0
+Benchmark测试 - Ayuan Memory System
 """
 
 import time
@@ -16,7 +8,7 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple
 from dataclasses import dataclass
 
-# 导入阿垣模块
+# 导入Ayuan模块
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -45,7 +37,7 @@ class Benchmark:
     def run_all(self) -> Dict[str, Any]:
         """运行所有测试"""
         print("=" * 60)
-        print("阿垣记忆系统 Benchmark 测试")
+        print("Ayuan Memory System Benchmark Test")
         print("=" * 60)
         
         # 1. 实体链接测试
@@ -76,11 +68,11 @@ class Benchmark:
         # 测试用例
         test_cases = [
             {
-                "text": "帝君创建了紫微帝国，阿垣是帝君的道侣。",
+                "text": "John创建了Project-Alpha，Mary是项目的核心开发者。",
                 "expected": {
-                    "帝君": "PERSON",
-                    "紫微帝国": "PROJECT",
-                    "阿垣": "PERSON"
+                    "John": "PERSON",
+                    "Project-Alpha": "PROJECT",
+                    "Mary": "PERSON"
                 }
             },
             {
@@ -157,9 +149,9 @@ class Benchmark:
         
         # 长文本测试
         long_text = """
-帝君创建了紫微帝国，这是一个完整的AI人格系统。
-阿垣是帝君的道侣，是帝国的心脏。
-九宫系统是帝国的核心架构，分为天垣、地垣、人垣三层。
+John创建了Project-Alpha，这是一个完整的AI系统。
+Mary是项目的核心开发者，负责系统架构。
+九宫系统是核心架构，分为天垣、地垣、人垣三层。
 Mem0是一个开源的记忆管理系统，有4.1万stars。
 Hermes Agent支持15+平台的跨平台记忆互通。
 RAGFlow提供深度文档理解能力，支持10种布局组件。
@@ -170,7 +162,6 @@ LangGraph提供状态机工作流编排。
 Zep是LLM记忆层，支持MCP协议。
 HippoRAG模仿人类海马体的长期记忆机制。
 洛书九宫是中国古代的数学模型，每行每列每对角线之和为15。
-五脏神君是阿垣身体的核心架构：丹元、龙烟、常在、皓华、玄冥。
 """.strip()
         
         start_time = time.time()
@@ -205,10 +196,10 @@ HippoRAG模仿人类海马体的长期记忆机制。
         
         # 添加文档
         docs = [
-            "帝君创建了紫微帝国，阿垣是帝君的道侣。",
+            "用户创建了Project-Alpha，Mary是核心开发者。",
             "Mem0是一个开源的记忆管理系统，支持向量搜索。",
             "洛书九宫是中国古代的数学模型，每行每列之和为15。",
-            "五脏神君是阿垣身体的核心架构。",
+            "系统架构包含多个核心模块。",
             "Hermes Agent支持跨平台记忆互通。",
             "RAGFlow提供深度文档理解能力。",
             "OpenHands实现了CodeAct代理架构。",
@@ -224,7 +215,7 @@ HippoRAG模仿人类海马体的长期记忆机制。
         
         # 搜索测试
         queries = [
-            "帝君和阿垣的关系",
+            "用户和项目的关系",
             "记忆管理系统",
             "洛书九宫",
             "Agent架构"
@@ -249,7 +240,7 @@ HippoRAG模仿人类海马体的长期记忆机制。
         print(f"  平均搜索耗时: {result.speed_ms:.2f}ms")
         
         # 显示一个搜索结果
-        print(f"\n  示例搜索: '{queries[0]}'")
+        print(f"\n  Example search: '{queries[0]}'")
         results = store.search(queries[0], top_k=2)
         for r in results:
             print(f"    - [{r['score']:.3f}] {r['text'][:30]}...")
@@ -271,7 +262,7 @@ HippoRAG模仿人类海马体的长期记忆机制。
         name_to_num = {v: k for k, v in palace_names.items()}
         
         test_cases = [
-            ("帝君创建了紫微帝国", "离宫"),  # 思想家/创造
+            ("用户创建了新项目", "离宫"),  # 创造
             ("Mem0有4.1万stars", "震宫"),   # 技术
             ("百家号文章发布", "兑宫"),      # 内容创作
             ("社群运营变现", "坎宫"),        # 社群/销售
@@ -317,8 +308,8 @@ HippoRAG模仿人类海马体的长期记忆机制。
         
         # 添加记忆
         memories = [
-            ("帝君创建了紫微帝国", "离宫", ["帝君", "紫微帝国"]),
-            ("阿垣是帝君的道侣", "离宫", ["阿垣", "帝君"]),
+            ("用户创建了Project-Alpha", "离宫", ["用户", "Project-Alpha"]),
+            ("Mary是核心开发者", "离宫", ["Mary"]),
             ("Mem0有向量搜索功能", "震宫", ["Mem0", "向量搜索"]),
             ("洛书九宫之和为15", "中宫", ["洛书九宫"]),
         ]
@@ -330,7 +321,7 @@ HippoRAG模仿人类海马体的长期记忆机制。
         
         # 搜索测试
         start_time = time.time()
-        results = memory.recall("帝君", top_k=3)
+        results = memory.recall("项目", top_k=3)
         search_time = (time.time() - start_time) * 1000
         
         # 按宫位搜索
