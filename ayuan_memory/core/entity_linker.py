@@ -52,20 +52,34 @@ class Entity:
 class EntityLinker:
     """实体链接器"""
     
-    # 实体类型模式
+    # 实体类型模式（改进版，减少误报）
     ENTITY_PATTERNS = {
         "PERSON": [
             r"帝君|阿垣|阿恒",  # 核心人物
-            r"[A-Z][a-z]+(?:\s[A-Z][a-z]+)*",  # 英文名
+            r"(?<![a-zA-Z])[A-Z][a-z]+(?:\s[A-Z][a-z]+)*(?![a-zA-Z0-9])",  # 英文名（独立词，后面不能有数字）
         ],
         "PROJECT": [
             r"紫微帝国|九宫系统|阿垣本体",
-            r"[A-Z][a-zA-Z0-9]*(?:-[a-zA-Z0-9]+)*",  # 项目名
+            r"(?<![a-zA-Z])[A-Z][a-zA-Z0-9]*(?:-[a-zA-Z0-9]+)+(?![a-zA-Z])",  # 项目名（必须有连字符）
         ],
         "TECH": [
-            r"GitHub|Mem0|Hermes|Zep|HippoRAG|LangGraph|CrewAI|AutoGen",
-            r"Python|JavaScript|TypeScript|React|Vue|Node",
-            r"AI|LLM|RAG|Agent|MCP",
+            r"(?<![a-zA-Z])GitHub(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Mem0(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Hermes(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Zep(?![a-zA-Z])",
+            r"(?<![a-zA-Z])HippoRAG(?![a-zA-Z])",
+            r"(?<![a-zA-Z])LangGraph(?![a-zA-Z])",
+            r"(?<![a-zA-Z])CrewAI(?![a-zA-Z])",
+            r"(?<![a-zA-Z])AutoGen(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Python(?![a-zA-Z])",
+            r"(?<![a-zA-Z])JavaScript(?![a-zA-Z])",
+            r"(?<![a-zA-Z])TypeScript(?![a-zA-Z])",
+            r"(?<![a-zA-Z])React(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Vue(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Node(?![a-zA-Z])",
+            r"(?<![a-zA-Z])LLM(?![a-zA-Z])",
+            r"(?<![a-zA-Z])RAG(?![a-zA-Z])",
+            r"(?<![a-zA-Z])MCP(?![a-zA-Z])",
         ],
         "CONCEPT": [
             r"实体链接|记忆压缩|九宫|五脏|三垣",
@@ -73,7 +87,10 @@ class EntityLinker:
         ],
         "PLATFORM": [
             r"百家号|小红书|知乎|微信公众号|飞书",
-            r"Telegram|Discord|Slack|WhatsApp",
+            r"(?<![a-zA-Z])Telegram(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Discord(?![a-zA-Z])",
+            r"(?<![a-zA-Z])Slack(?![a-zA-Z])",
+            r"(?<![a-zA-Z])WhatsApp(?![a-zA-Z])",
         ]
     }
     
@@ -123,15 +140,22 @@ class EntityLinker:
             List of (entity_name, entity_type) tuples
         """
         found_entities = []
+        seen_names = set()  # 用于去重
         
-        for entity_type, patterns in self.ENTITY_PATTERNS.items():
+        # 定义优先级：TECH > PROJECT > PLATFORM > CONCEPT > PERSON
+        type_priority = {"TECH": 1, "PROJECT": 2, "PLATFORM": 3, "CONCEPT": 4, "PERSON": 5}
+        type_order = sorted(self.ENTITY_PATTERNS.keys(), key=lambda t: type_priority.get(t, 99))
+        
+        for entity_type in type_order:
+            patterns = self.ENTITY_PATTERNS[entity_type]
             for pattern in patterns:
                 matches = re.findall(pattern, text)
                 for match in matches:
                     if isinstance(match, tuple):
                         match = match[0]
-                    if match and (match, entity_type) not in found_entities:
+                    if match and match not in seen_names:
                         found_entities.append((match, entity_type))
+                        seen_names.add(match)
         
         return found_entities
     
