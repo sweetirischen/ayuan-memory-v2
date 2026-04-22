@@ -8,7 +8,7 @@ import os
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ayuan_memory import EntityLinker, MemoryCondenser, MemoryPalace, NinePalaces
+from ayuan_memory import EntityLinker, MemoryCondenser, MemoryPalace, NinePalaces, Evolution
 from ayuan_memory.utils.storage import MemoryStorage
 
 
@@ -20,12 +20,12 @@ def test_entity_linker():
     linker = EntityLinker(storage_path=":memory:")
     
     # Test extracting entities
-    text = "John works on Project-Alpha with Mem0 and Hermes"
+    text = "DiJun created ZiWeiEmpire, AYuan is the core system"
     entities = linker.extract_entities(text)
     print(f"  Extracted entities: {entities}")
     
     # Test linking entity
-    entity = linker.link_entity("Mem0", "TECH", "memory_001", "Memory management system")
+    entity = linker.link_entity("AYuan", "PROJECT", "memory_001", "Memory management system")
     print(f"  Linked entity: {entity.name}, type: {entity.entity_type}")
     
     print("  [OK] EntityLinker test passed\n")
@@ -138,6 +138,31 @@ def test_storage():
     print("  [OK] Storage test passed\n")
 
 
+def test_evolution():
+    """Test Evolution"""
+    print("Testing Evolution...")
+    
+    evo = Evolution()
+    
+    # Test version
+    version = evo.get_version()
+    print(f"  Current version: v{version}")
+    
+    # Test abilities count
+    abilities_count = len(evo.abilities)
+    print(f"  Abilities count: {abilities_count}")
+    
+    # Test plans count
+    plans_count = len(evo.plans)
+    print(f"  Future plans count: {plans_count}")
+    
+    # Test evolution history
+    history_count = len(evo.history)
+    print(f"  Evolution history count: {history_count}")
+    
+    print("  [OK] Evolution test passed\n")
+
+
 def run_all_tests():
     """Run all tests"""
     print("=" * 50)
@@ -149,6 +174,7 @@ def run_all_tests():
     test_nine_palaces()
     test_memory_palace()
     test_storage()
+    test_evolution()
     
     print("=" * 50)
     print("All tests passed!")

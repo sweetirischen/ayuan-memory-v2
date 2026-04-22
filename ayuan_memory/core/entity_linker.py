@@ -55,12 +55,11 @@ class EntityLinker:
     # 实体类型模式（改进版，减少误报）
     ENTITY_PATTERNS = {
         "PERSON": [
+            r"DiJun",  # 核心人物
             r"(?<![a-zA-Z])[A-Z][a-z]+(?:\s[A-Z][a-z]+)*(?![a-zA-Z0-9])",  # 英文名（独立词，后面不能有数字）
         ],
         "PROJECT": [
-            r"(?<![a-zA-Z])[A-Z][a-zA-Z0-9]*(?:-[a-zA-Z0-9]+)+(?![a-zA-Z])",  # 项目名（必须有连字符）
-        ],
-        "PROJECT": [
+            r"ZiWeiEmpire|NinePalacesSystem|AYuanCore|AYuan",
             r"(?<![a-zA-Z])[A-Z][a-zA-Z0-9]*(?:-[a-zA-Z0-9]+)+(?![a-zA-Z])",  # 项目名（必须有连字符）
         ],
         "ORG": [
