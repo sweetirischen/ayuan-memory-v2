@@ -2,30 +2,28 @@
 
 > **让AI有记忆，有灵魂。**
 
-一个融合洛书九宫哲学的AI记忆管理系统。
+一个AI记忆管理系统。
 
 ---
 
 ## 一行代码，开始使用
 
 ```python
-from ayuan_memory import Memory
+from ayuan_memory import EntityLinker, MemoryCondenser, VectorStore
 
-memory = Memory()
-memory.remember("用户创建了新项目", palace="离宫")
-results = memory.recall("项目")  # 语义搜索
+# 实体链接
+linker = EntityLinker()
+entities = linker.extract_entities("John works on Project-Alpha with Python")
+
+# 记忆压缩
+condenser = MemoryCondenser()
+result = condenser.compress(long_conversation)
+
+# 向量搜索
+store = VectorStore()
+store.add("用户创建了新项目")
+results = store.search("项目")
 ```
-
----
-
-## 为什么选择Ayuan？
-
-| 别的记忆系统 | Ayuan记忆系统 |
-|-------------|-------------|
-| 存储数据 | 存储智慧 |
-| 搜索引擎 | 记忆宫殿 |
-| 扁平列表 | 九宫分类 |
-| 冷冰冰 | 有灵魂 |
 
 ---
 
@@ -66,14 +64,14 @@ results = store.search("项目开发")
 # 自动找到相关记忆
 ```
 
-### 4. 九宫分类 - 古代智慧，现代应用
+### 4. 记忆分类 - 结构化组织
 
 ```python
 from ayuan_memory import NinePalaces
 
 palaces = NinePalaces()
 palace = palaces.classify_text("技术开发项目")
-# 返回：3 (震宫·木·生发)
+# 自动分类到对应类别
 ```
 
 ### 5. 进化可见 - 让AI成长可见
@@ -85,55 +83,9 @@ from ayuan_memory import Evolution, check_update
 evo = Evolution()
 evo.show_all()
 
-# 检查更新（更新后自动提醒新功能）
+# 检查更新
 check_update()
 ```
-
-**输出示例**：
-
-```
-╔══════════════════════════════════════════════════╗
-║            AYuan Evolved!                        ║
-╚══════════════════════════════════════════════════╝
-
-  v0.1.0 → v0.2.0
-
-  AYuan learned to understand relationships better!
-
-  New abilities learned:
-    + Graph Database
-    + LLM Enhancement
-```
-
-**这是AYuan独有的功能** - 用户可以看到AI学到了什么，正在学什么，计划学什么。
-
-**更酷的是**：每次更新，用户都会收到"AYuan进化了"的提醒，让用户感觉AI在成长，变成用户专属的小AYuan。
-
----
-
-## 九宫分类系统
-
-基于洛书九宫的记忆组织方式：
-
-```
-  4(巽)  9(离)  2(坤)
-  3(震)  5(中)  7(兑)
-  8(艮)  1(坎)  6(乾)
-```
-
-每行、每列、每对角线之和 = **15**（宇宙平衡数）
-
-| 宫位 | 五行 | 含义 | 适合存储 |
-|------|------|------|----------|
-| 坎宫(1) | 水 | 起源·种子 | 创意、想法、开始 |
-| 坤宫(2) | 土 | 承载·地基 | 规则、框架、基础 |
-| 震宫(3) | 木 | 生发·成长 | 技术、系统、开发 |
-| 巽宫(4) | 木 | 运化·传播 | 平台、运营、推广 |
-| 中宫(5) | 土 | 枢纽·核心 | 决策、关键、重要 |
-| 乾宫(6) | 金 | 收敛·秩序 | 战略、投资、管理 |
-| 兑宫(7) | 金 | 显现·表达 | 内容、创作、发布 |
-| 艮宫(8) | 土 | 存储·归档 | 知识库、资源、沉淀 |
-| 离宫(9) | 火 | 升华·智慧 | 洞察、哲学、道 |
 
 ---
 
@@ -144,18 +96,10 @@ check_update()
 | 向量搜索 | ✅ | ✅ | ✅ | ✅ |
 | 实体链接 | ✅ | ✅ | ✅ | ✅ |
 | 记忆压缩 | ❌ | ✅ | ❌ | ✅ |
-| 九宫分类 | ❌ | ❌ | ❌ | ✅ |
+| 记忆分类 | ❌ | ❌ | ❌ | ✅ |
 | **进化可见** | ❌ | ❌ | ❌ | ✅ **独有** |
 | 中文优化 | ❌ | ❌ | ❌ | ✅ |
-| 哲学框架 | ❌ | ❌ | ❌ | ✅ |
 | 零依赖核心 | ❌ | ❌ | ❌ | ✅ |
-
-**Ayuan独有的价值**：
-
-1. **九宫哲学框架** - 让记忆有层次、有结构
-2. **进化可见** - 让AI成长透明，用户知道它学到了什么
-
-这不是一个技术特性，是一种思维方式。让AI的记忆不再是扁平的数据，而是有层次、有结构、有灵魂的智慧。
 
 ---
 
@@ -182,7 +126,7 @@ pip install ayuan-memory[dev]
 | 测试项 | 准确率 | 耗时 |
 |--------|--------|------|
 | 实体链接 | 100% | 1.59ms |
-| 九宫分类 | 100% | 0.00ms |
+| 记忆分类 | 100% | 0.00ms |
 | 向量搜索 | 100% | 0.25ms |
 | 综合测试 | 100% | 0.00ms |
 
@@ -204,7 +148,7 @@ pip install ayuan-memory[dev]
 
 1. **极简** - 一个API，一行代码，就能用
 2. **优雅** - 代码要美，文档要美，体验要美
-3. **独特** - 九宫哲学是独有价值，别人复制不了
+3. **独特** - 独有价值，别人复制不了
 4. **完整** - 不是拼凑模块，是整体设计
 5. **升华** - 不只是记忆管理，是"让AI有灵魂"
 
@@ -217,11 +161,6 @@ pip install ayuan-memory[dev]
 - OpenHands - 记忆压缩
 - HippoRAG - 类脑记忆
 - Zep - 记忆层设计
-
-以及中国古典哲学：
-- 洛书九宫
-- 五行学说
-- 三垣架构
 
 ---
 
