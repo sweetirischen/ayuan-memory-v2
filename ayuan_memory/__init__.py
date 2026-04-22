@@ -35,3 +35,14 @@ __all__ = [
     "check_update",
     "show_evolution",
 ]
+
+
+def show_task_board():
+    """显示任务栏"""
+    import os
+    task_file = os.path.join(os.path.dirname(__file__), "..", "TASK_BOARD.md")
+    if os.path.exists(task_file):
+        with open(task_file, "r", encoding="utf-8") as f:
+            print(f.read())
+    else:
+        print("Task board not found")
